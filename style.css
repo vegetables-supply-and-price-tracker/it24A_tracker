@@ -1,0 +1,189 @@
+/* ---------- COLOR PALETTE ----------
+   Dark Green: #1B4332
+   Medium Green: #2D6A4F
+   Light Green: #40916C
+   Soft Mint: #D8F3DC
+   Light Gray: #F4F4F4
+--------------------------------------*/
+
+body {
+  font-family: Arial, sans-serif;
+  background: #F4F4F4;
+  color: #1B4332;
+  margin: 0;
+  padding: 3px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  background: white;
+  border-radius: 10px;
+  padding: 20px 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  color: #2D6A4F;
+  font-size: 28px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 25px;
+}
+
+/* Panels */
+.panel {
+  background: #D8F3DC;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  color: #1B4332;
+}
+
+/* Supply tracker items */
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  font-size: 16px;
+}
+
+.value {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.value.down {
+  color: #B00020;
+}
+
+/* SVG Down Arrow */
+.arrow {
+  width: 14px;
+  height: 14px;
+  fill: #B00020;
+}
+
+/* Placeholder */
+.placeholder {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+/* Market Supply Table */
+.market {
+  background: #D8F3DC;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.market h2 {
+  margin-top: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #b8e0c2;
+}
+
+td:last-child {
+  text-align: right;
+}
+/* NAVIGATION BAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2D6A4F;
+  padding: 12px 25px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+}
+
+/* Left: Logo */
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #D8F3DC;
+}
+
+/* Center: Search Bar */
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar {
+  width: 55%;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: #D8F3DC;
+  color: #1B4332;
+}
+
+.search-bar::placeholder {
+  color: #1B4332;
+  opacity: 0.8;
+}
+
+/* Right: Navigation Links */
+.nav-right a {
+  color: #D8F3DC;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.nav-right a:hover {
+  background: #40916C;
+  color: white;
+}
+
+/* Responsive (Mobile) */
+@media(max-width: 700px) {
+
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-center {
+    order: 3;
+  }
+
+  .nav-right {
+    display: flex;
+    gap: 10px;
+  }
+
+  .search-bar {
+    width: 90%;
+  }
+}
