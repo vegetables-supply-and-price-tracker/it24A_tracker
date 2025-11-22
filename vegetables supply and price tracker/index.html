@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Supply Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="logo">AgriTrack</div>
+  </div>
+
+  <div class="nav-center">
+    <input type="text" class="search-bar" placeholder="Search...">
+  </div>
+
+  <div class="nav-right">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <header>
+    <h1>Supply Tracker</h1>
+    <div class="filter-bar">
+      <button class="filter active" id="recent" onclick="updateView('recent')">Recently</button>
+      <button class="filter" id="weekly" onclick="updateView('weekly')">Weekly</button>
+      <button class="filter" id="monthly" onclick="updateView('monthly')">Monthly</button>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <section class="panel">
+      <h2>Manolo Fortich</h2>
+      <div class="item">
+        <span>Vegetable</span>
+        <span class="value down" id="vegValue">-15%</span>
+      </div>
+      <div class="item">
+        <span>Fruits</span>
+        <span class="value down" id="fruitValue">-10%</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Damilag</h2>
+      <div class="item">
+        <span>Vegetable</span>
+        <span class="value down" id="damiVeg">-6%</span>
+      </div>
+      <div class="item">
+        <span>Fruits</span>
+        <span class="value down" id="damiFruit">-4%</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Alae</h2>
+      <div class="item">
+        <span>Vegetable</span>
+        <span class="value up" id="alaeVeg">+3%</span>
+      </div>
+      <div class="item">
+        <span>Fruits</span>
+        <span class="value up" id="alaeFruit">+5%</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Mantibugao</h2>
+      <div class="item">
+        <span>Vegetable</span>
+        <span class="value up" id="mantVeg">+6%</span>
+      </div>
+      <div class="item">
+        <span>Fruits</span>
+        <span class="value up" id="mantFruit">+2%</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Dalirig</h2>
+      <div class="item">
+        <span>Vegetable</span>
+        <span class="value up" id="dalirigVeg">+4%</span>
+      </div>
+      <div class="item">
+        <span>Fruits</span>
+        <span class="value up" id="dalirigFruit">+3%</span>
+      </div>
+    </section>
+
+    <section class="market">
+      <h2>Market Supply</h2>
+      <table id="marketTable">
+        <tr><td>Carrot</td><td>$14.4</td></tr>
+        <tr><td>Onion</td><td>$14.4</td></tr>
+        <tr><td>Garlic</td><td>$14.4</td></tr>
+        <tr><td>Lettuce</td><td>$14.4</td></tr>
+        <tr><td>Cabbage</td><td>$14.4</td></tr>
+        <tr><td>Orange</td><td>$14.4</td></tr>
+        <tr><td>Apple</td><td>$14.4</td></tr>
+        <tr><td>Mango</td><td>$14.4</td></tr>
+      </table>
+    </section>
+
+  </main>
+
+</div>
+
+<script>
+  const supplyData = {
+    recent: {
+      manolo: { vegetable: "-15%", fruits: "-10%" },
+      damilag: { vegetable: "-6%", fruits: "-4%" },
+      alae: { vegetable: "+3%", fruits: "+5%" },
+      mantibugao: { vegetable: "+6%", fruits: "+2%" },
+      dalirig: { vegetable: "+4%", fruits: "+3%" },
+      market: [
+        ["Carrot", "$14.4"],
+        ["Onion", "$12.1"],
+        ["Garlic", "$10.8"],
+        ["Lettuce", "$13.0"],
+        ["Cabbage", "$8.5"]
+      ]
+    },
+    weekly: {
+      manolo: { vegetable: "-8%", fruits: "-4%" },
+      damilag: { vegetable: "-3%", fruits: "-2%" },
+      alae: { vegetable: "+2%", fruits: "+3%" },
+      mantibugao: { vegetable: "+4%", fruits: "+1%" },
+      dalirig: { vegetable: "+3%", fruits: "+2%" },
+      market: [
+        ["Carrot", "$12.0"],
+        ["Onion", "$9.8"],
+        ["Garlic", "$11.3"],
+        ["Lettuce", "$12.8"],
+        ["Cabbage", "$7.9"]
+      ]
+    },
+    monthly: {
+      manolo: { vegetable: "+5%", fruits: "+9%" },
+      damilag: { vegetable: "+1%", fruits: "+2%" },
+      alae: { vegetable: "+7%", fruits: "+8%" },
+      mantibugao: { vegetable: "+9%", fruits: "+5%" },
+      dalirig: { vegetable: "+6%", fruits: "+4%" },
+      market: [
+        ["Carrot", "$16.2"],
+        ["Onion", "$14.9"],
+        ["Garlic", "$13.0"],
+        ["Lettuce", "$15.0"],
+        ["Cabbage", "$10.2"]
+      ]
+    }
+  };
+
+  const vegeEl = document.getElementById("vegValue");
+  const fruitEl = document.getElementById("fruitValue");
+  const damiVegEl = document.getElementById("damiVeg");
+  const damiFruitEl = document.getElementById("damiFruit");
+  const alaeVegEl = document.getElementById("alaeVeg");
+  const alaeFruitEl = document.getElementById("alaeFruit");
+  const mantVegEl = document.getElementById("mantVeg");
+  const mantFruitEl = document.getElementById("mantFruit");
+  const dalirigVegEl = document.getElementById("dalirigVeg");
+  const dalirigFruitEl = document.getElementById("dalirigFruit");
+  const marketTable = document.getElementById("marketTable");
+  const buttons = document.querySelectorAll(".filter");
+
+  function updateView(type) {
+    const data = supplyData[type];
+
+    vegeEl.textContent = data.manolo.vegetable;
+    fruitEl.textContent = data.manolo.fruits;
+
+    damiVegEl.textContent = data.damilag.vegetable;
+    damiFruitEl.textContent = data.damilag.fruits;
+
+    alaeVegEl.textContent = data.alae.vegetable;
+    alaeFruitEl.textContent = data.alae.fruits;
+
+    mantVegEl.textContent = data.mantibugao.vegetable;
+    mantFruitEl.textContent = data.mantibugao.fruits;
+
+    dalirigVegEl.textContent = data.dalirig.vegetable;
+    dalirigFruitEl.textContent = data.dalirig.fruits;
+
+    marketTable.innerHTML = "";
+    data.market.forEach(row => {
+      marketTable.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+    });
+
+    buttons.forEach(btn => btn.classList.remove("active"));
+    document.getElementById(type).classList.add("active");
+  }
+
+  updateView("recent");
+</script>
+
+</body>
+</html>
