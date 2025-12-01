@@ -4,13 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Market Supply Tracker</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
+
+<body>
+
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-left">
     <div class="logo">AgriTrack</div>
-  </div>
+  </div>  
 
   <div class="nav-center">
     <input type="text" class="search-bar" placeholder="Search...">
@@ -24,53 +32,62 @@
   </div>
 </nav>
 
-<body>
+<!-- MAP -->
+<h3>My Leaflet Map</h3>
+<div id="map"></div>
 
-  <div class="container">
+<!-- PAGE CONTENT -->
+<div class="container">
 
-    <header>
-      <h1>Supply Tracker</h1>
-    </header>
+  <header>
+    <h1>Supply Tracker</h1>
+  </header>
 
-    <main class="grid">
-      
-      <!-- LEFT PANEL -->
-      <section class="panel">
-        <h2>Manolo Fortich</h2>
-        <div class="item">
-          <span>Vegetable</span>
-          <span class="value down">-15% <svg class="arrow" viewBox="0 0 20 20"><path d="M10 14l-6-6h12z"/></svg></span>
-        </div>
-        <div class="item">
-          <span>Fruits</span>
-          <span class="value down">-10% <svg class="arrow" viewBox="0 0 20 20"><path d="M10 14l-6-6h12z"/></svg></span>
-        </div>
-      </section>
+  <main class="grid">
 
-      <!-- RIGHT PANEL -->
-      <section class="panel">
-        <h2>Damilag</h2>
-        <p class="placeholder">No data available...</p>
-      </section>
+    <!-- LEFT PANEL -->
+    <section class="panel">
+      <h2>Manolo Fortich</h2>
+      <div class="item">
+        <span>Vegetable</span>
+        <span class="value down">-15% <svg class="arrow" viewBox="0 0 20 20"><path d="M10 14l-6-6h12z"/></svg></span>
+      </div>
+      <div class="item">
+        <span>Fruits</span>
+        <span class="value down">-10% <svg class="arrow" viewBox="0 0 20 20"><path d="M10 14l-6-6h12z"/></svg></span>
+      </div>
+    </section>
 
-      <!-- MARKET SUPPLY -->
-      <section class="market">
-        <h2>Market Supply</h2>
-        <table>
-          <tr><td>Carrot</td><td>$14.4</td></tr>
-          <tr><td>Onion</td><td>$14.4</td></tr>
-          <tr><td>Garlic</td><td>$14.4</td></tr>
-          <tr><td>Lettuce</td><td>$14.4</td></tr>
-          <tr><td>Cabbage</td><td>$14.4</td></tr>
-          <tr><td>Orange</td><td>$14.4</td></tr>
-          <tr><td>Apple</td><td>$14.4</td></tr>
-          <tr><td>Mango</td><td>$14.4</td></tr>
-        </table>
-      </section>
+    <!-- RIGHT PANEL -->
+    <section class="panel">
+      <h2>Damilag</h2>
+      <p class="placeholder">No data available...</p>
+    </section>
 
-    </main>
+    <!-- MARKET SUPPLY -->
+    <section class="market">
+      <h2>Market Supply</h2>
+      <table>
+        <tr><td>Carrot</td><td>$14.4</td></tr>
+        <tr><td>Onion</td><td>$14.4</td></tr>
+        <tr><td>Garlic</td><td>$14.4</td></tr>
+        <tr><td>Lettuce</td><td>$14.4</td></tr>
+        <tr><td>Cabbage</td><td>$14.4</td></tr>
+        <tr><td>Orange</td><td>$14.4</td></tr>
+        <tr><td>Apple</td><td>$14.4</td></tr>
+        <tr><td>Mango</td><td>$14.4</td></tr>
+      </table>
+    </section>
 
-  </div>
+  </main>
+
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Your JS -->
+<script src="Maps.js"></script>
 
 </body>
 </html>
