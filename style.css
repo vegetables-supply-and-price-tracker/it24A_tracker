@@ -215,7 +215,7 @@ td:last-child {
   width: 320px;
   margin: 20px auto;
   padding: 20px;
-  background: linear-gradient(135deg, #4fc3f7, #0288d1);
+  background: linear-gradient(135deg, #a6ebb1, #92f4a0);
   color: white;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -258,7 +258,7 @@ td:last-child {
 
     #map {
       height: 400px;
-      width: 90%;
+      width: 60%;
       margin: 20px auto;
       border-radius: 10px;
       overflow: hidden;
