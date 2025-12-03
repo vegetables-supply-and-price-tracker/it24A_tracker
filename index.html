@@ -39,14 +39,8 @@
 <body>
 
 <nav class="navbar">
-  <div class="nav-left">
-    <div class="logo">AgriTrack</div>
-  </div>
-
-  <div class="nav-center">
-    <input type="text" class="search-bar" placeholder="Search...">
-  </div>
-
+  <div class="nav-left"><div class="logo">AgriTrack</div></div>
+  <div class="nav-center"><input type="text" class="search-bar" placeholder="Search..."></div>
   <div class="nav-right">
     <a href="#">Home</a>
     <a href="#">About</a>
@@ -55,15 +49,15 @@
   </div>
 </nav>
 
-<!-- ⭐ WEATHER SECTION ⭐ -->
+<!-- WEATHER SECTION -->
 <div class="weather-box">
   <h2>Current Weather</h2>
   <button onclick="getWeather()">Get Current Weather</button>
   <div id="weatherResult"></div>
 </div>
 
-<!-- ⭐ MAP SECTION ⭐ -->
-<h2 style="text-align:center;">📍 Manolo Fortich Map</h2>
+<!-- MAP SECTION -->
+<h2 style="text-align:center;">📍 Map of Locations</h2>
 <div id="map"></div>
 
 <div class="container">
@@ -121,21 +115,16 @@
 </div>
 
 <script>
-/* ⭐ WEATHER FUNCTION ⭐ */
+/* WEATHER FUNCTION */
 const apiKey = "dd168dcf3652a76a4c73c6f6e93daffd";
-
 async function getWeather() {
   const city = prompt("Enter city:");
   if (!city) return alert("No city entered");
-
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error("City not found");
-
     const data = await response.json();
-
     document.getElementById("weatherResult").innerHTML = `
       <h3>${data.name}, ${data.sys.country}</h3>
       <p><strong>Temp:</strong> ${data.main.temp} °C</p>
@@ -143,107 +132,62 @@ async function getWeather() {
       <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
       <p><strong>Wind:</strong> ${data.wind.speed} m/s</p>
     `;
-  } catch (err) {
-    alert("Error: " + err.message);
-  }
+  } catch (err) { alert("Error: " + err.message); }
 }
 
-/* ⭐ LEAFLET MAP ⭐ */
-var map = L.map('map').setView([8.3601, 124.8684], 14);
-
+/* LEAFLET MAP WITH MULTIPLE LOCATIONS */
+var map = L.map('map').setView([8.3601, 124.8684], 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; OpenStreetMap'
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap'
 }).addTo(map);
 
-L.marker([8.3601, 124.8684])
-  .addTo(map)
-  .bindPopup("<b>Manolo Fortich</b><br>Bukidnon, Philippines.");
+// Locations array
+const locations = [
+    {lat:8.3601, lng:124.8684, title:"Manolo Fortich", description:"Center of Manolo Fortich"},
+    {lat:8.3712, lng:124.8750, title:"Damilag", description:"Damilag area"},
+    {lat:8.3450, lng:124.8600, title:"Alae", description:"Alae area"},
+    {lat:8.3800, lng:124.8700, title:"Mantibugao", description:"Mantibugao area"},
+    {lat:8.3400, lng:124.8500, title:"Dalirig", description:"Dalirig area"}
+];
 
-  
-/* ⭐ SUPPLY TRACKER ⭐ */
+// Add a marker for every location
+locations.forEach(loc => {
+    L.marker([loc.lat, loc.lng]).addTo(map)
+      .bindPopup(`<b>${loc.title}</b><br>${loc.description}`);
+});
+
+/* SUPPLY TRACKER */
 const supplyData = {
-  recent: {
-    manolo: { vegetable: "-15%", fruits: "-10%" },
-    damilag: { vegetable: "-6%", fruits: "-4%" },
-    alae: { vegetable: "+3%", fruits: "+5%" },
-    mantibugao: { vegetable: "+6%", fruits: "+2%" },
-    dalirig: { vegetable: "+4%", fruits: "+3%" },
-    market: [
-      ["Carrot", "$14.4"],
-      ["Onion", "$12.1"],
-      ["Garlic", "$10.8"],
-      ["Lettuce", "$13.0"],
-      ["Cabbage", "$8.5"]
-    ]
-  },
-  weekly: {
-    manolo: { vegetable: "-8%", fruits: "-4%" },
-    damilag: { vegetable: "-3%", fruits: "-2%" },
-    alae: { vegetable: "+2%", fruits: "+3%" },
-    mantibugao: { vegetable: "+4%", fruits: "+1%" },
-    dalirig: { vegetable: "+3%", fruits: "+2%" },
-    market: [
-      ["Carrot", "$12.0"],
-      ["Onion", "$9.8"],
-      ["Garlic", "$11.3"],
-      ["Lettuce", "$12.8"],
-      ["Cabbage", "$7.9"]
-    ]
-  },
-  monthly: {
-    manolo: { vegetable: "+5%", fruits: "+9%" },
-    damilag: { vegetable: "+1%", fruits: "+2%" },
-    alae: { vegetable: "+7%", fruits: "+8%" },
-    mantibugao: { vegetable: "+9%", fruits: "+5%" },
-    dalirig: { vegetable: "+6%", fruits: "+4%" },
-    market: [
-      ["Carrot", "$16.2"],
-      ["Onion", "$14.9"],
-      ["Garlic", "$13.0"],
-      ["Lettuce", "$15.0"],
-      ["Cabbage", "$10.2"]
-    ]
-  }
+  recent: {manolo:{vegetable:"-15%",fruits:"-10%"},damilag:{vegetable:"-6%",fruits:"-4%"},alae:{vegetable:"+3%",fruits:"+5%"},mantibugao:{vegetable:"+6%",fruits:"+2%"},dalirig:{vegetable:"+4%",fruits:"+3%"},market:[["Carrot","$14.4"],["Onion","$12.1"],["Garlic","$10.8"],["Lettuce","$13.0"],["Cabbage","$8.5"]]},
+  weekly: {manolo:{vegetable:"-8%",fruits:"-4%"},damilag:{vegetable:"-3%",fruits:"-2%"},alae:{vegetable:"+2%",fruits:"+3%"},mantibugao:{vegetable:"+4%",fruits:"+1%"},dalirig:{vegetable:"+3%",fruits:"+2%"},market:[["Carrot","$12.0"],["Onion","$9.8"],["Garlic","$11.3"],["Lettuce","$12.8"],["Cabbage","$7.9"]]},
+  monthly:{manolo:{vegetable:"+5%",fruits:"+9%"},damilag:{vegetable:"+1%",fruits:"+2%"},alae:{vegetable:"+7%",fruits:"+8%"},mantibugao:{vegetable:"+9%",fruits:"+5%"},dalirig:{vegetable:"+6%",fruits:"+4%"},market:[["Carrot","$16.2"],["Onion","$14.9"],["Garlic","$13.0"],["Lettuce","$15.0"],["Cabbage","$10.2"]]}
 };
 
-const vegeEl = document.getElementById("vegValue");
-const fruitEl = document.getElementById("fruitValue");
-const damiVegEl = document.getElementById("damiVeg");
-const damiFruitEl = document.getElementById("damiFruit");
-const alaeVegEl = document.getElementById("alaeVeg");
-const alaeFruitEl = document.getElementById("alaeFruit");
-const mantVegEl = document.getElementById("mantVeg");
-const mantFruitEl = document.getElementById("mantFruit");
-const dalirigVegEl = document.getElementById("dalirigVeg");
-const dalirigFruitEl = document.getElementById("dalirigFruit");
-const marketTable = document.getElementById("marketTable");
-const buttons = document.querySelectorAll(".filter");
+const vegeEl=document.getElementById("vegValue"),fruitEl=document.getElementById("fruitValue"),
+      damiVegEl=document.getElementById("damiVeg"),damiFruitEl=document.getElementById("damiFruit"),
+      alaeVegEl=document.getElementById("alaeVeg"),alaeFruitEl=document.getElementById("alaeFruit"),
+      mantVegEl=document.getElementById("mantVeg"),mantFruitEl=document.getElementById("mantFruit"),
+      dalirigVegEl=document.getElementById("dalirigVeg"),dalirigFruitEl=document.getElementById("dalirigFruit"),
+      marketTable=document.getElementById("marketTable"),buttons=document.querySelectorAll(".filter");
 
-function updateView(type) {
-  const data = supplyData[type];
+function updateView(type){
+  const data=supplyData[type];
+  vegeEl.textContent=data.manolo.vegetable;
+  fruitEl.textContent=data.manolo.fruits;
+  damiVegEl.textContent=data.damilag.vegetable;
+  damiFruitEl.textContent=data.damilag.fruits;
+  alaeVegEl.textContent=data.alae.vegetable;
+  alaeFruitEl.textContent=data.alae.fruits;
+  mantVegEl.textContent=data.mantibugao.vegetable;
+  mantFruitEl.textContent=data.mantibugao.fruits;
+  dalirigVegEl.textContent=data.dalirig.vegetable;
+  dalirigFruitEl.textContent=data.dalirig.fruits;
 
-  vegeEl.textContent = data.manolo.vegetable;
-  fruitEl.textContent = data.manolo.fruits;
+  marketTable.innerHTML="";
+  data.market.forEach(row=>marketTable.innerHTML+=`<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`);
 
-  damiVegEl.textContent = data.damilag.vegetable;
-  damiFruitEl.textContent = data.damilag.fruits;
-
-  alaeVegEl.textContent = data.alae.vegetable;
-  alaeFruitEl.textContent = data.alae.fruits;
-
-  mantVegEl.textContent = data.mantibugao.vegetable;
-  mantFruitEl.textContent = data.mantibugao.fruits;
-
-  dalirigVegEl.textContent = data.dalirig.vegetable;
-  dalirigFruitEl.textContent = data.dalirig.fruits;
-
-  marketTable.innerHTML = "";
-  data.market.forEach(row => {
-    marketTable.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
-  });
-
-  buttons.forEach(btn => btn.classList.remove("active"));
+  buttons.forEach(btn=>btn.classList.remove("active"));
   document.getElementById(type).classList.add("active");
 }
 
