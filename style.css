@@ -211,3 +211,55 @@ td:last-child {
     width: 90%;
   }
 }
+   .weather-box {
+  width: 320px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #4fc3f7, #0288d1);
+  color: white;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+.weather-box h2 {
+  font-size: 22px
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.weather-box button {
+  padding: 10px 18px;
+  background: white;
+  color: #0288d1;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s ease;
+  font-weight: 600;
+}
+
+.weather-box button:hover {
+  background: #e1f5fe;
+  transform: translateY(-2px);
+}
+
+#weatherResult {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  min-height: 40px;
+  font-size: 16px;
+}
+
+    #map {
+      height: 400px;
+      width: 90%;
+      margin: 20px auto;
+      border-radius: 10px;
+      overflow: hidden;
+    }
