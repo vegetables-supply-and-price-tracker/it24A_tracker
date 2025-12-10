@@ -1,6 +1,4 @@
 
-
-const marketData = [
 {
 "Name": "Manolo Fortich",
 "Title": "Manolo Fotic Public Market",
@@ -155,7 +153,7 @@ const marketData = [
 "lat": "8.365599481591083",
 "lng": "124.86498505662725"
 }
-];
+
 
 /// 1. Create map
 var map = L.map('map').setView([8.37, 124.85], 12);

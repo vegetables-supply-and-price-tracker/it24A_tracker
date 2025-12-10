@@ -1,214 +1,199 @@
-/* ---------- COLOR PALETTE ----------
-   Dark Green: #1B4332
-   Medium Green: #2D6A4F
-   Light Green: #40916C
-   Soft Mint: #D8F3DC
-   Light Gray: #F4F4F4
---------------------------------------*/
+/* ---------- COLORS ---------- */
+:root{
+  --dark: #1B4332;
+  --med: #2D6A4F;
+  --light: #40916C;
+  --mint: #D8F3DC;
+  --bg: #F4F4F4;
+}
 
-body {
+*{box-sizing:border-box}
+body{
   font-family: Arial, sans-serif;
-  background: #F4F4F4;
-  color: #1B4332;
-  margin: 0;
-  padding: 3px;
+  background: var(--bg);
+  color: var(--dark);
+  margin:0;
+  padding:8px;
 }
 
-#map {
-  height: 600px;
-  width: 1200px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  margin-left: 120px;
-  justify-content: center;
-  display: flex;
-}
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  background: white;
-  border-radius: 10px;
-  padding: 20px 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-header h1 {
-  color: #2D6A4F;
-  font-size: 28px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 25px;
-}
-
-/* Panels */
-.panel {
-  background: #D8F3DC;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.panel h2 {
-  margin-top: 0;
-  color: #1B4332;
-}
-
-/* Supply tracker items */
-.item {
-  display: flex;
-  justify-content: space-between;
-  margin: 12px 0;
-  font-size: 16px;
-}
-
-.value {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.value.down {
-  color: #B00020;
-}
-
-/* SVG Down Arrow */
-.arrow {
-  width: 14px;
-  height: 14px;
-  fill: #B00020;
-}
-
-/* Placeholder */
-.placeholder {
-  color: #6c757d;
-  font-size: 14px;
-}
-
-/* Market Supply Table */
-.market {
-  background: #D8F3DC;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.market h2 {
-  margin-top: 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-td {
-  padding: 10px;
-  border-bottom: 1px solid #b8e0c2;
-}
-
-td:last-child {
-  text-align: right;
-}
-
-/* NAVIGATION BAR */
+/* NAV */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #2D6A4F;
-  padding: 12px 25px;
-  border-radius: 8px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background: var(--med);
+  padding:12px 18px;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.12);
+  margin-bottom:18px;
+}
+.logo{ color:var(--mint); font-weight:700; font-size:20px;}
+.nav-center{ flex:1; display:flex; justify-content:center; }
+.search-bar{
+  width:55%; padding:8px 12px; border-radius:20px; border:none; outline:none;
+  background:var(--mint); color:var(--dark);
+}
+.nav-right a, .nav-right button{ color:var(--mint); text-decoration:none; margin-left:12px;}
+.nav-weather-btn{
+  background:var(--med); color:white; padding:8px 12px; border-radius:6px; border:none; cursor:pointer;
+}
+.nav-weather-btn:hover{ background:var(--dark); }
+
+.section-title{
+  text-align:center; font-size:24px; color:var(--med); margin:8px 0 18px;
+}
+.section-title1{
+  text-align:center; font-size:24px; color:var(--med); margin:8px 0 18px; margin-top: 50px;margin-bottom: -30px;
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: #D8F3DC;
+/* Hold map +  */
+.map-weather-wrapper{
+  max-width:1400px; margin:0 auto; display:flex; gap:20px; align-items:flex-start; padding:0 12px;
+}
+#map{ flex:3; height:600px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+/* Sidebar under map (centered) */
+#sidebar{
+  flex:1; min-width:260px; background:var(--mint); padding:18px; border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08); margin:0 auto;
+}
+#sidebar h2{ color:var(--med); margin-top:0; }
+#sidebar img{ width:100%; border-radius:6px; margin-top:10px; display:block; }
+
+/* content below map */
+.container{ max-width:200px; margin:30px auto; background:white; padding:20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+.grid{ display:grid;   display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Panels shrink to 250px min */
+    gap: 60px;
+    max-width: 1400px; /* Adjust based on how narrow you want it */
+    margin: 0 auto; /* Center the grid */
+    justify-items: center;
+    margin-top: 50px;
+    /* Center the panels inside each grid cell */ }
+
+.panel{ background:var(--mint); padding:16px; border-radius:10px; width: 420px; max-width:480px;}
+.market{ background:var(--mint); padding:16px; border-radius:10px; }
+
+/* Weather slide-in panel (hidden by default) */
+#weatherPanel{
+  position:fixed; top:0; right:-380px; width:360px; height:100%; background:var(--mint);
+  padding:18px; box-shadow:-3px 0 12px rgba(0,0,0,0.18); transition:right .28s ease; z-index:9999;
+}
+#weatherPanel.show{ right:0; }
+.close-btn{ background:var(--med); color:white; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; float:right; }
+.close-btn:hover{ background:var(--dark); }
+
+/* small screens */
+@media(max-width:1000px){
+  .map-weather-wrapper{ flex-direction:column; }
+  .nav-center .search-bar{ width:80%;}
+  .grid{ grid-template-columns:1fr; }
+  #weatherPanel{ width:100%; right:-100%; }
+  #weatherPanel.show{ right:0; }
 }
 
-.nav-center {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+/* --- Styles for Dynamic Data inside the 3 Panels --- */
+
+.panel-content {
+    margin-top: 15px;
+    max-height: 280px; /* Set a max height */
+    overflow-y: auto;  /* Make the content scrollable */
+    padding-right: 5px; /* Add padding for scrollbar visibility */
 }
 
-.search-bar {
-  width: 55%;
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  background: #D8F3DC;
-  color: #1B4332;
+/* Style for each item/price line */
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 15px;
+    color: #1B4332;
+    /* This creates the clean separation line */
+    border-bottom: 1px dashed #b8e0c2; 
+}
+.custom-marker1 {
+    border: 2px solid rgb(13, 190, 182);   /* border color */
+    border-radius: 50%;       /* makes it circular */
+    box-shadow: 0 0 5px black; /* optional shadow for depth */
+}
+.custom-marker2 {
+    border: 2px solid rgb(63, 162, 228);   /* border color */
+    border-radius: 50%;       /* makes it circular */
+    box-shadow: 0 0 5px black; /* optional shadow for depth */
+}
+.custom-marker3 {
+    border: 2px solid red;   /* border color */
+    border-radius: 50%;       /* makes it circular */
+    box-shadow: 0 0 5px black; /* optional shadow for depth */
+}
+/* Style the price value */
+.price-value {
+    font-weight: bold;
+    color: #2D6A4F; /* Medium Green for emphasis */
 }
 
-.search-bar::placeholder {
-  color: #1B4332;
-  opacity: 0.8;
+/* Remove the border from the last item in the list */
+.panel-content .price-item:last-child {
+    border-bottom: none;
 }
 
-/* Nav Links */
-.nav-right a {
-  color: #D8F3DC;
-  text-decoration: none;
-  margin-left: 20px;
-  font-size: 16px;
-  padding: 8px 12px;
-  border-radius: 5px;
-  transition: 0.2s;
-}
-
-.nav-right a:hover {
-  background: #40916C;
-  color: white;
-}
-
-/* Responsive (Mobile) */
-@media(max-width: 700px) {
-
-  .navbar {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-center {
-    order: 3;
-  }
-
-  .nav-right {
+/* --- Filter Buttons (Ensure these are styled) --- */
+.time-filters {
     display: flex;
     gap: 10px;
-  }
-
-  .search-bar {
-    width: 90%;
-  }
+    margin-top: 15px;
+    justify-content: center;
 }
 
-
-
-#sidebar h2 {
-    color: #2D6A4F;
-    margin-top: 0;
-}
-
-#sidebar img {
-    max-width: 100%;
+.filter-btn {
+    background: #40916C;
+    color: #D8F3DC;
+    border: none;
+    padding: 8px 15px;
     border-radius: 5px;
-    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+    align-items: center;
 }
 
-#sidebar p {
-    margin: 5px 0;
+.filter-btn:hover {
+    background: #2D6A4F;
+}
+
+.filter-btn.active {
+    background: #1B4332;
+    color: white;
+    font-weight: bold;
+}
+
+/* --- Sidebar Price List Styling --- */
+.price-list {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.price-item-sidebar {
+    display: flex;
+    justify-content: space-between; /* Align item name left, price right */
+    padding: 5px 0;
+    border-bottom: 1px dashed #40916C; /* Subtle divider */
+}
+
+.price-item-sidebar:last-child {
+    border-bottom: none;
+}
+
+.price-value-sidebar {
+    font-weight: bold;
+    color: var(--med); /* Use your medium green variable */
+}
+
+#sidebar h4 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: var(--dark);
+    font-size: 16px;
 }

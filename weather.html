@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Market Supply Tracker — Fixed</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    /* ---------- COLORS ---------- */
+    :root{
+      --dark: #1B4332;
+      --med: #2D6A4F;
+      --light: #40916C;
+      --mint: #D8F3DC;
+      --bg: #F4F4F4;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      margin:0;
+      padding:8px;
+    }
+
+    /* NAV */
+    .navbar {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background: var(--med);
+      padding:12px 18px;
+      border-radius:8px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.12);
+      margin-bottom:18px;
+    }
+    .logo{ color:var(--mint); font-weight:700; font-size:20px;}
+    .nav-center{ flex:1; display:flex; justify-content:center; }
+    .search-bar{
+      width:55%; padding:8px 12px; border-radius:20px; border:none; outline:none;
+      background:var(--mint); color:var(--dark);
+    }
+    .nav-right a, .nav-right button{ color:var(--mint); text-decoration:none; margin-left:12px;}
+    .nav-weather-btn{
+      background:var(--med); color:white; padding:8px 12px; border-radius:6px; border:none; cursor:pointer;
+    }
+    .nav-weather-btn:hover{ background:var(--dark); }
+
+    .section-title{
+      text-align:center; font-size:24px; color:var(--med); margin:8px 0 18px;
+    }
+
+    /* Hold map + sidebar */
+    .map-weather-wrapper{
+      max-width:1400px; margin:0 auto; display:flex; gap:20px; align-items:flex-start; padding:0 12px;
+    }
+    #map{ flex:3; height:600px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+    /* Sidebar under map (centered) */
+    #sidebar{
+      flex:1; min-width:260px; background:var(--mint); padding:18px; border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08); margin:0 auto;
+    }
+    #sidebar h2{ color:var(--med); margin-top:0; }
+    #sidebar img{ width:100%; border-radius:6px; margin-top:10px; display:block; }
+
+    /* content below map */
+    .container{ max-width:1100px; margin:30px auto; background:white; padding:20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+    .grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+
+    .panel{ background:var(--mint); padding:16px; border-radius:10px; }
+    .market{ background:var(--mint); padding:16px; border-radius:10px; }
+
+    /* Weather slide-in panel (hidden by default) */
+    #weatherPanel{
+      position:fixed; top:0; right:-380px; width:360px; height:100%; background:var(--mint);
+      padding:18px; box-shadow:-3px 0 12px rgba(0,0,0,0.18); transition:right .28s ease; z-index:9999;
+    }
+    #weatherPanel.show{ right:0; }
+    .close-btn{ background:var(--med); color:white; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; float:right; }
+    .close-btn:hover{ background:var(--dark); }
+
+    /* small screens */
+    @media(max-width:1000px){
+      .map-weather-wrapper{ flex-direction:column; }
+      .nav-center .search-bar{ width:80%;}
+      .grid{ grid-template-columns:1fr; }
+      #weatherPanel{ width:100%; right:-100%; }
+      #weatherPanel.show{ right:0; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-left"><div class="logo">AgriTrack</div></div>
+    <div class="nav-center"><input class="search-bar" placeholder="Search..."></div>
+    <div class="nav-right">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+      <button id="openWeatherBtn" class="nav-weather-btn">Weather</button>
+    </div>
+  </nav>
+
+  <h3 class="section-title">Market location in Manolo Fortich Area</h3>
+
+  <div class="map-weather-wrapper">
+    <div id="map"></div>
+
+    <div id="sidebar">
+      <h2>Market Info</h2>
+      <div id="sidebar-content">Select a marker on the map</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <header><h1>Supply Tracker</h1></header>
+    <main class="grid">
+      <section class="panel"><h2>Manolo Fortich</h2><p>Example data</p></section>
+      <section class="panel"><h2>Damilag</h2><p>No data</p></section>
+      <section class="market"><h2>Market Supply</h2><p>Table...</p></section>
+    </main>
+  </div>
+
+  <!-- weather slide-in -->
+  <div id="weatherPanel" aria-hidden="true">
+    <button id="closeWeatherBtn" class="close-btn">✖</button>
+    <h2>Current Weather</h2>
+    <div id="weatherResult">Click Weather in navbar to load</div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Market data (example)
+    const marketData = [
+      {"Name":"Manolo Fortich","Title":"Manolo Fortich Public Market","description":"Main public market","img":"", "lat":"8.365599481591083","lng":"124.86498505662725"},
+      {"Name":"San Miguel Market","Title":"San Miguel Public Market","description":"Another market","img":"", "lat":"8.388608181763985","lng":"124.83472900823863"},
+      {"Name":"Alae Public Market","Title":"Alae Public Market","description":"Public Market","img":"", "lat":"8.423759410958136","lng":"124.81326166656369"},
+      {"Name":"Puring Vegetable Market","Title":"Puring Vegetable Market","description":"Small business stall","img":"", "lat":"8.366149607154622","lng":"124.86582259023582"}
+    ];
+
+    // Initialize map centered on Manolo Fortich
+    const map = L.map('map').setView([8.365599481591083,124.86498505662725], 12);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add markers and click handler to update sidebar
+    marketData.forEach((market) => {
+      const lat = parseFloat(market.lat);
+      const lng = parseFloat(market.lng);
+      if (Number.isFinite(lat) && Number.isFinite(lng)) {
+        const marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup(`<strong>${market.Title}</strong><br>${market.Name}`);
+
+        marker.on('click', () => {
+          // center map on selection
+          map.setView([lat, lng], 14, {animate:true});
+          // populate sidebar
+          const imgHTML = market.img ? `<img src="${market.img}" alt="${market.Title}">` : '';
+          document.getElementById('sidebar-content').innerHTML = `
+            <h3>${market.Name}</h3>
+            <strong>${market.Title}</strong>
+            <p>${market.description}</p>
+            ${imgHTML}
+          `;
+        });
+      }
+    });
+
+    // WEATHER panel logic
+    const openBtn = document.getElementById("openWeatherBtn");
+    const closeBtn = document.getElementById("closeWeatherBtn");
+    const weatherPanel = document.getElementById("weatherPanel");
+
+    // Ensure getWeather is defined in this scope
+    const apiKey = "63e8b75fb1661588955c8428c4f4cd55";
+
+    async function getWeather() {
+      // <-- you used prompt flows earlier; keep that or replace with input inside the panel
+      const city = prompt("Enter a city name to fetch weather (e.g. Manolo Fortich)");
+      if (!city) {
+        document.getElementById('weatherResult').innerHTML = '<p style="color:#666">No city entered.</p>';
+        return;
+      }
+      const weatherResult = document.getElementById("weatherResult");
+      weatherResult.innerHTML = '<p>Loading...</p>';
+
+      try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('City not found or API error');
+        const data = await response.json();
+        weatherResult.innerHTML = `
+          <h3>${data.name}, ${data.sys.country}</h3>
+          <p>Temperature: ${data.main.temp}°C</p>
+          <p>Weather: ${data.weather[0].description}</p>
+          <p>Humidity: ${data.main.humidity}%</p>
+          <p>Wind: ${data.wind.speed} m/s</p>
+        `;
+      } catch (err) {
+        weatherResult.innerHTML = `<p style="color:red">Error: ${err.message}</p>`;
+        console.error(err);
+      }
+    }
+
+    openBtn.addEventListener('click', () => {
+      weatherPanel.classList.add('show');
+      weatherPanel.setAttribute('aria-hidden','false');
+      // call getWeather() if you want to immediately ask for city
+      getWeather();
+    });
+    closeBtn.addEventListener('click', () => {
+      weatherPanel.classList.remove('show');
+      weatherPanel.setAttribute('aria-hidden','true');
+    });
+  });
+  </script>
+</body>
+</html>

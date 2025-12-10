@@ -1,0 +1,128 @@
+{
+  "market_data": {
+    "1_day": [
+      {
+        "item": "Carrot (kg)",
+        "Manolo_Fortich": 95.00,
+        "Damilag": 98.50,
+        "Alae": 89.00
+      },
+      {
+        "item": "Onion (kg)",
+        "Manolo_Fortich": 110.00,
+        "Damilag": 115.00,
+        "Alae": 105.00
+      },
+      {
+        "item": "Garlic (kg)",
+        "Manolo_Fortich": 140.00,
+        "Damilag": 145.00,
+        "Alae": 135.00
+      },
+      {
+        "item": "Cabbage (kg)",
+        "Manolo_Fortich": 80.00,
+        "Damilag": 82.00,
+        "Alae": 78.00
+      },
+      {
+        "item": "Lettuce (head)",
+        "Manolo_Fortich": 65.00,
+        "Damilag": 68.00,
+        "Alae": 60.00
+      },
+      {
+        "item": "Orange (kg)",
+        "Manolo_Fortich": 120.00,
+        "Damilag": 125.00,
+        "Alae": 118.00
+      },
+      {
+        "item": "Apple (pc)",
+        "Manolo_Fortich": 45.00,
+        "Damilag": 48.00,
+        "Alae": 42.00
+      },
+      {
+        "item": "Mango (kg)",
+        "Manolo_Fortich": 180.00,
+        "Damilag": 190.00,
+        "Alae": 175.00
+      },
+      {
+        "item": "Tomato (kg)",
+        "Manolo_Fortich": 70.00,
+        "Damilag": 75.00,
+        "Alae": 65.00
+      },
+      {
+        "item": "Potato (kg)",
+        "Manolo_Fortich": 105.00,
+        "Damilag": 110.00,
+        "Alae": 100.00
+      }
+    ],
+    "7_day": [
+      {
+        "item": "Carrot (kg)",
+        "Manolo_Fortich": 92.00,
+        "Damilag": 95.50,
+        "Alae": 87.00
+      },
+      {
+        "item": "Onion (kg)",
+        "Manolo_Fortich": 108.00,
+        "Damilag": 113.00,
+        "Alae": 103.00
+      },
+      {
+        "item": "Garlic (kg)",
+        "Manolo_Fortich": 138.00,
+        "Damilag": 143.00,
+        "Alae": 133.00
+      },
+      {
+        "item": "Cabbage (kg)",
+        "Manolo_Fortich": 79.00,
+        "Damilag": 81.00,
+        "Alae": 77.00
+      },
+      {
+        "item": "Lettuce (head)",
+        "Manolo_Fortich": 64.00,
+        "Damilag": 67.00,
+        "Alae": 59.00
+      },
+      {
+        "item": "Orange (kg)",
+        "Manolo_Fortich": 118.00,
+        "Damilag": 123.00,
+        "Alae": 116.00
+      },
+      {
+        "item": "Apple (pc)",
+        "Manolo_Fortich": 44.00,
+        "Damilag": 47.00,
+        "Alae": 41.00
+      },
+      {
+        "item": "Mango (kg)",
+        "Manolo_Fortich": 178.00,
+        "Damilag": 188.00,
+        "Alae": 173.00
+      },
+      {
+        "item": "Tomato (kg)",
+        "Manolo_Fortich": 69.00,
+        "Damilag": 74.00,
+        "Alae": 64.00
+      },
+      {
+        "item": "Potato (kg)",
+        "Manolo_Fortich": 103.00,
+        "Damilag": 108.00,
+        "Alae": 98.00
+      }
+    ]
+  }
+}

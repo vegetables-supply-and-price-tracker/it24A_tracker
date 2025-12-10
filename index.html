@@ -1,93 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Market Supply Tracker</title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Market Supply Tracker — Fixed</title>
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <nav class="navbar">
+    <div class="nav-left"><div class="logo">AgriTrack</div></div>
+    <div class="nav-center"><input class="search-bar" placeholder="Search..."></div>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="nav-left">
-    <div class="logo">AgriTrack</div>
-  </div>  
+      <button id="openWeatherBtn" class="nav-weather-btn">Weather</button>
+    </div>
+  </nav>
 
-  <div class="nav-center">
-    <input type="text" class="search-bar" placeholder="Search...">
+  <h3 class="section-title">Market location</h3>
+
+  <div class="map-weather-wrapper">
+    <div id="map"></div>
+
+    <div id="sidebar">
+      <h2>Market Info</h2>
+      <div id="sidebar-content">Select a marker on the map</div>
+    </div>
   </div>
 
-  <div class="nav-right">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
+<h3 class="section-title1">General Market Data of each Area</h3>
+<button class="filter-btn active" data-time="1_day">1 Day</button>
+<button class="filter-btn" data-time="7_day">7 Days</button>
+
+<main class="grid">
+    <section class="panel" id="manolo-fortich-panel">
+        <h2>Manolo Fortich</h2>
+        <div class="panel-content">
+            <p>Loading prices...</p>
+        </div>
+    </section>
+
+    <section class="panel" id="damilag-panel">
+        <h2>Damilag</h2>
+        <div class="time-filters">
+            
+        </div>
+        <div class="panel-content">
+            <p>Loading prices...</p>
+        </div>
+    </section>
+
+    <section class="panel" id="alae-panel">
+        <h2>Alae</h2>
+        <div class="panel-content">
+            <p>Loading prices...</p>
+        </div>
+    </section>
+</main>
+
+  <!-- weather slide-in -->
+  <div id="weatherPanel" aria-hidden="true">
+    <button id="closeWeatherBtn" class="close-btn">✖</button>
+    <h2>Current Weather</h2>
+    <div id="weatherResult">Click Weather in navbar to load</div>
   </div>
-</nav>
 
-<!-- MAP -->
-<h3>My Leaflet Map</h3>
-<div id="map"></div>
-
-<!-- PAGE CONTENT -->
-<div class="container">
-
-  <header>
-    <h1>Supply Tracker</h1>
-  </header>
-
-  <main class="grid">
-
-    <!-- LEFT PANEL -->
-    <section class="panel">
-      <h2>Manolo Fortich</h2>
-      <div class="item">
-        <span>Vegetable</span>
-        <span class="value down">-15% <svg class="arrow" viewBox="0 0 20 20"><path d="M10 14l-6-6h12z"/></svg></span>
-      </div>
-      <div class="item">
-        <span>Fruits</span>
-        <span class="value down">-10% <svg class="arrow" viewBox="0 0 20 20"><path d="M10 14l-6-6h12z"/></svg></span>
-      </div>
-    </section>
-
-    <!-- RIGHT PANEL -->
-    <section class="panel">
-      <h2>Damilag</h2>
-      <p class="placeholder">No data available...</p>
-    </section>
-
-    <!-- MARKET SUPPLY -->
-    <section class="market">
-      <h2>Market Supply</h2>
-      <table>
-        <tr><td>Carrot</td><td>$14.4</td></tr>
-        <tr><td>Onion</td><td>$14.4</td></tr>
-        <tr><td>Garlic</td><td>$14.4</td></tr>
-        <tr><td>Lettuce</td><td>$14.4</td></tr>
-        <tr><td>Cabbage</td><td>$14.4</td></tr>
-        <tr><td>Orange</td><td>$14.4</td></tr>
-        <tr><td>Apple</td><td>$14.4</td></tr>
-        <tr><td>Mango</td><td>$14.4</td></tr>
-      </table>
-    </section>
-
-  </main>
-
-</div>
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-<!-- Your JS -->
-<script src="Maps.js"></script>
-
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
 </body>
 </html>
